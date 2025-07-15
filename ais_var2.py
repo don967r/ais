@@ -48,23 +48,17 @@ time_window_hours = st.sidebar.slider(
     step=1,
     help="Искать суда, которые были в зоне разлива за указанное количество часов ДО его обнаружения."
 )
-
 # Обновляем состояние при изменении
 st.session_state.time_window = time_window_hours
-
 # --- 3. Функции для обработки и анализа данных ---
-
 @st.cache_data
 def load_spills_data(uploaded_file):
     # ... (остается без изменений, как в оригинальном коде) ...
-
 @st.cache_data
 def load_ais_data(uploaded_file):
     # ... (остается без изменений, как в оригинальном коде) ...
-
 def find_candidates(spills_gdf, vessels_gdf, time_window_hours):
     # ... (остается без изменений, как в оригинальном коде) ...
-
 # --- 4. Основная логика приложения ---
 def main():
     # Обработка загрузки файлов
@@ -72,18 +66,14 @@ def main():
         st.session_state.spills_data = load_spills_data(spills_file)
     if ais_file:
         st.session_state.ais_data = load_ais_data(ais_file)
-
     spills_gdf = st.session_state.spills_data
     vessels_gdf = st.session_state.ais_data
-
     if spills_gdf is not None and vessels_gdf is not None:
         # Проверка на пустые данные
         if spills_gdf.empty or vessels_gdf.empty:
             st.error("Один из датасетов пуст после обработки!")
             return
-
         candidates_df = find_candidates(spills_gdf, vessels_gdf, time_window_hours)
-
         # ... (остальная часть визуализации и аналитики без изменений) ...
         # Полный код визуализации из оригинального приложения
         # ...
